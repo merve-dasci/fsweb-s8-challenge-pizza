@@ -1,0 +1,92 @@
+
+:root {
+  --yellow: #FDC913;
+  --gray:   #5F5F5F;
+  --dark:   #292929;
+  --red:    #CE2829;
+  --beige:  #FAF7F2;
+}
+
+
+#order {
+  max-width: 960px;
+  margin: 24px auto;
+}
+
+#order h2 {
+  
+  font-family: "Quattrocento", "Barlow", serif;
+  margin: 8px 0 16px;
+  color: var(--dark);
+}
+
+
+.form-group + .form-group {
+  margin-top: 12px;
+}
+
+fieldset {
+  margin-top: 16px;
+  border: none;
+  padding: 0;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--dark);
+}
+
+
+.toppings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 24px;
+}
+
+@media (max-width: 768px) {
+  .toppings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+
+.helper {
+  margin-top: 6px;
+  color: var(--gray);
+  font-size: 0.95rem;
+}
+
+
+#order .form-control {
+  border-radius: 8px;
+}
+
+
+#order button[type="submit"] {
+  background: var(--yellow);
+  color: #000;
+  border: none;
+  font-weight: 700;
+  padding: 12px 18px;
+  border-radius: 10px;
+}
+
+#order button[type="submit"]:hover:not([disabled]) {
+  filter: brightness(0.95);
+}
+
+#order button[type="submit"][disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.form-check {
+  margin: 4px 0;
+}

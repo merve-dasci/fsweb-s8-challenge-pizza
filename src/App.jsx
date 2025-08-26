@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import workintech from '/workintech.svg'
+import OrderForm from "./components/OrderForm"
+import Header from "./components/Header"
+
+
 import './App.css'
 
 function App() {
@@ -8,10 +10,11 @@ function App() {
 
   return (
     <>
-     
-      <p className="read-the-docs">
-        Sprint 8 Pizza Challenge
-      </p>
+     <Header />
+      <main className='container'>
+        <OrderForm />
+      </main>
+      
     </>
   )
 }
