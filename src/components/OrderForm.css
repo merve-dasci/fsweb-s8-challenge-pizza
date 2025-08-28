@@ -20,7 +20,7 @@
   
   font-family: "Quattrocento", "Barlow", serif;
   margin: 8px 0 16px;
-  color: var(--dark);
+  color:  #292929;
 }
 
 
@@ -37,7 +37,7 @@ fieldset {
 legend {
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--dark);
+  color:  #292929;
 }
 
 
