@@ -2,7 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import "./OrderForm.css";
 
-import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap";
+import { Form, FormGroup, Input, Label, Button, Container, Card, CardBody, CardTitle } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 const Toppings = [
@@ -40,7 +40,17 @@ export default function OrderForm() {
         ozel: "",
         toppings: [],
     })
-    
+
+    const [adet, setAdet] =useState(1)
+    const tabanFiyat = 85.5
+    const malzemeFiyat = 5
+    const secilenlerTutar = form.toppings.length * malzemeFiyat
+    const toplamTutar = (tabanFiyat + secilenlerTutar) * adet
+
+    const azalt = () => setAdet((tane) => Math.max(1, tane - 1))
+    const arttir = () => setAdet((tane) => tane + 1)
+
+
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value;
@@ -88,6 +98,8 @@ function handleSubmit(event) {
         ozel: form.ozel.trim(),
      }
      axios.post("https://reqres.in/api/pizza", payload).then((response) => {
+      console.log("Sipariş özeti:", response.data)
+      
         history.push("/success", response.data)
      })
      .catch((error) => console.error("Hata:", error))
@@ -120,7 +132,7 @@ const reachedMax = form.toppings.length >= 10
               ))}
             </FormGroup>
             <FormGroup>
-              <Label for="hamurSelect">Hamur Kalınlığı</Label>
+              <Label for="hamurSelect">Hamur Seç</Label>
               <Input
                 id="hamurSelect"
                 name="hamur"
@@ -128,7 +140,7 @@ const reachedMax = form.toppings.length >= 10
                 value={form.hamur}
                 onChange={handleChange}
               >
-                <option value="">Hamur Seç</option>
+                <option value="">Hamur Kalınlığı</option>
                 {hamurType.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label} Kenar
@@ -139,6 +151,7 @@ const reachedMax = form.toppings.length >= 10
 
             <FormGroup tag="fieldset">
               <legend>Ek Malzemeler </legend>
+              <p>En fazla 10 malzeme seçebilirsiniz.(5₺)</p>
               <div className="toppings-grid">
                 {Toppings.map((topping, index) => (
                   <FormGroup
@@ -189,10 +202,85 @@ const reachedMax = form.toppings.length >= 10
                 placeholder="Siparişine eklemek istediğin bir not var mı?"
               />{" "}
             </FormGroup>
-
-            <Button type="submit" disabled={!isFormValid}>
-              SİPARİŞ VER
-            </Button>
+            <div
+              className="order-footer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "nowrap",
+                gap: "20px",
+              }}
+            >
+              <FormGroup
+                className="sayac-box"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                <Label className="sayaclar">Adet</Label>
+                <div
+                  className="sayac"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Button
+                    style={{
+                      backgroundColor: "#FDC913",
+                      borderColor: "#FDC913",
+                      color: "black",
+                      width: 40,
+                      height: 40,
+                      padding: 0,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onClick={azalt}
+                  >
+                    -
+                  </Button>
+                  <Input
+                    style={{
+                      height: 40,
+                      width: 50,
+                      textAlign: "center",
+                      boxSizing: "border-box",
+                      MozAppearance: "textfield",
+                      padding: "8px 12px"
+                    }}
+                    type="number"
+                    value={adet}
+                    readOnly
+                  />
+                  <Button
+                    style={{
+                      backgroundColor: "#FDC913",
+                      borderColor: "#FDC913",
+                      color: "black",
+                      
+                    }}
+                    onClick={arttir}
+                  >
+                    +
+                  </Button>
+                </div>
+              </FormGroup>
+              <Card className="total-card" style={{minwidth:240, flex:1}} >
+                <CardBody>
+                  <CardTitle tag="h6" className="total-price">
+                    Sipariş Toplamı
+                  </CardTitle>
+                  <div className="total-amount" style={{display:"flex", justifyContent:"space-between"}}>
+                    <span>Seçimler</span>
+                    <span>{secilenlerTutar.toFixed(2)}₺</span>
+                  </div>
+                  <div className="total-amount" style={{display:"flex", justifyContent:"space-between"}} >
+                    <div>Toplam</div>
+                    <strong>{toplamTutar.toFixed(2)}₺</strong>
+                  </div>
+                  <Button  type="submit" disabled={!isFormValid} style={{backgroundColor:"#FDC913", marginTop:10, width:"100%" }}>
+                    Sipariş Ver
+                  </Button>
+                </CardBody>
+              </Card>
+            </div>
           </Form>
         </Container>
       </section>

@@ -10,14 +10,15 @@
 
 html, body, #root {
   height: 100%;
+  width: 100%;
 }
 
 body {
-  background: var(--beige);
-  color: var(--dark);
+  background: #FAF7F2;
+  color: #292929;
  
   font-family: "Barlow", "Roboto Condensed", system-ui, -apple-system, Arial, sans-serif;
-  line-height: 1.5;
+  line-height: 1;
 }
 
 main {

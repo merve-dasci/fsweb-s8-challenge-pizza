@@ -18,7 +18,7 @@ export default function Header() {
             <NavLink href="/">Anasayfa</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#order">Sipariş Oluştur</NavLink>
+            <NavLink href="/order">Sipariş Oluştur</NavLink>
           </NavItem>
         </Nav>
       </Container>
