@@ -1,95 +1,197 @@
-
 :root {
   --yellow: #FDC913;
-  --gray:   #5F5F5F;
+  --gray:   #6b6b6b;
   --dark:   #292929;
-  --red:    #CE2829;
   --beige:  #FAF7F2;
 }
 
 
-#order {
+#order-form {
   width: 100%;
   max-width: 960px;
   margin: 24px auto;
   padding: 0 16px;
   box-sizing: border-box;
+  color: var(--dark);
+  font-family: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.size-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
 }
 
-#order h2 {
-  
-  font-family: "Quattrocento", "Barlow", serif;
-  margin: 8px 0 16px;
-  color:  #292929;
-}
-
-
-.form-group + .form-group {
-  margin-top: 12px;
-}
-
-fieldset {
-  margin-top: 16px;
-  border: none;
-  padding: 0;
-}
-
-legend {
+.container-box {
+  display: inline-flex;          
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: #FAF7F2;
+  border: 1px solid #eee;
+  color: #292929;
   font-weight: 600;
-  margin-bottom: 6px;
-  color:  #292929;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 6px;             
+  box-sizing: border-box;
+  position: relative;
 }
 
 
-.toppings-grid {
+
+.container-box input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+
+.container-box:has(input[type="radio"]:checked) {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #000;
+  
+}
+
+#order-form .hamur-box {
+  background: #FAF7F2;
+}
+
+#order-form .toppings-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px 24px;
+  gap: 10px 18px;
+  margin-top: 8px;
+}
+#order-form input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.topping-label::before {
+  content: "";
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  background: #fff;
+  display: inline-block;
+  flex: 0 0 26px;
+  box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-  .toppings-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.topping-label:has(input[type="checkbox"]:checked)::before {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  
 }
 
-.disabled {
+
+
+.topping-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  cursor: pointer;
+  user-select: none;
+  color: #222;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+
+.topping-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+
+.topping-label::before {
+  content: "";
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  background: #fff;
+  display: inline-block;
+  flex: 0 0 26px;
+  box-sizing: border-box;
+}
+
+
+.topping-label:has(input[type="checkbox"]:checked)::before {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
+
+
+.topping-label.disabled {
   opacity: 0.6;
   pointer-events: none;
 }
 
 
-.helper {
-  margin-top: 6px;
-  color: var(--gray);
-  font-size: 0.95rem;
-}
-
-
-#order .form-control {
+#order-form .form-control,
+#order-form select,
+#order-form textarea {
   border-radius: 8px;
+  border: 1px solid #eee;
+  padding: 10px 12px;
+  background: #fff;
+}
+
+.form-check-input,
+.form-check-input + label {
+  pointer-events: auto !important;
 }
 
 
-#order button[type="submit"] {
+.sayac { display: flex; align-items: center; gap: 8px; }
+.sayac button { width: 40px; height: 40px; border-radius: 8px; }
+
+
+.total-card {
+  min-width: 240px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.total-card .card-body { padding: 16px; }
+
+
+#order-form button[type="submit"] {
   background: var(--yellow);
   color: #000;
   border: none;
   font-weight: 700;
   padding: 12px 18px;
-  border-radius: 10px;
+  border-radius: 8px;
+  width: 100%;
 }
 
-#order button[type="submit"]:hover:not([disabled]) {
-  filter: brightness(0.95);
-}
 
-#order button[type="submit"][disabled] {
+#order-form button[type="submit"][disabled] {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 
-.form-check {
-  margin: 4px 0;
+@media (max-width: 768px) {
+  #order-form .toppings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .container-box { width: 34px; height: 34px; min-width: 34px; }
+  .topping-label::before { width: 22px; height: 22px; }
 }

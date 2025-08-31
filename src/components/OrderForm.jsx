@@ -25,9 +25,9 @@ const Toppings = [
 ]
 
 const sizes = [
-  { value: "Küçük", label: "Küçük" },
-  { value: "Orta", label: "Orta" },
-  { value: "Büyük", label: "Büyük" },
+  { value: "S", label: "S" },
+  { value: "M", label: "M" },
+  { value: "L", label: "L" },
 ];
 const hamurType = [
     {value: "Kalın", label: "Kalın"},
@@ -124,45 +124,42 @@ function handleSubmit(event) {
   const reachedMax = form.toppings.length >= 10;
 
   return (
-    <section id="order">
+    <section id="order-form">
       <Container>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span>85.50₺</span>
-          <span>4.9</span>
-          <span>(200)</span>
-        </div>
-        <p>
-          Frontend Dev olarak hala position absolute kullanıyorsan bu çok acı
-          pizza tam sana göre. Pizza domates, peynir ve genellikle çeşitli diğer
-          malzemelerle kaplanmış, daha sonra geleneksel odun ateşinde bir
-          fırında yüksek sıcaklıkta pişirilen, genellikle yuvarklak,
-          düzleştirilmiş mayalı buğday bazlı hamurdan oluşlan İtalyan kökenli
-          lezzetli bir yemektir. Küçük bir pizzaya bazen pizetta denir.
-        </p>
         <Form onSubmit={handleSubmit}>
           <FormGroup tag="fieldset">
-            <legend>Boyut Seç</legend>
+            <div className="size-row">
+              <legend>Boyut Seç</legend>
 
-            {sizes.map((sizeOption, index) => (
-              <FormGroup check key={sizeOption.value}>
-                <Label check htmlFor={`size-${index}`}>
-                  <Input
-                    id={`size-${index}`}
-                    type="radio"
-                    name="size"
-                    value={sizeOption.value}
-                    checked={form.size === sizeOption.value}
-                    onChange={handleChange}
-                  />{" "}
-                  {sizeOption.label}
-                </Label>
-              </FormGroup>
-            ))}
+              {sizes.map((sizeOption, index) => (
+                <FormGroup check key={sizeOption.value}>
+                  <Label
+                    className="container-box"
+                    check
+                    htmlFor={`size-${index}`}
+                  >
+                    <Input
+                      id={`size-${index}`}
+                      data-cy={`size-${sizeOption.value}`}
+                      type="radio"
+                      name="size"
+                      value={sizeOption.value}
+                      checked={form.size === sizeOption.value}
+                      onChange={handleChange}
+                    />{" "}
+                    {sizeOption.label}
+                  </Label>
+                </FormGroup>
+              ))}
+            </div>
           </FormGroup>
           <FormGroup>
-            <Label for="hamurSelect">Hamur Seç</Label>
+            <Label className="hamur-box" for="hamurSelect">
+              Hamur Seç
+            </Label>
             <Input
               id="hamurSelect"
+              data-cy="hamur-select"
               name="hamur"
               type="select"
               value={form.hamur}
@@ -191,9 +188,17 @@ function handleSubmit(event) {
                       : ""
                   }
                 >
-                  <Label check>
+                  <Label
+                    check
+                    className={`topping-label ${
+                      !form.toppings.includes(topping) && reachedMax
+                        ? "disabled"
+                        : ""
+                    }`}
+                  >
                     <Input
                       type="checkbox"
+                      data-cy={`topping-${index}`}
                       name="toppings"
                       value={topping}
                       checked={form.toppings.includes(topping)}
@@ -210,6 +215,7 @@ function handleSubmit(event) {
             <Label htmlFor="isim">İsim</Label>
             <Input
               id="isim"
+              data-cy="input-name"
               name="isim"
               type="text"
               value={form.isim}
@@ -221,6 +227,7 @@ function handleSubmit(event) {
             <Label htmlFor="ozel">Sipariş Notu</Label>
             <Input
               id="ozel"
+              data-cy="input-note"
               name="ozel"
               type="textarea"
               value={form.ozel}
@@ -299,7 +306,9 @@ function handleSubmit(event) {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <span>Seçimler</span>
-                  <span>{secilenlerTutar.toFixed(2)}₺</span>
+                  <span data-cy="selections-amount">
+                    {secilenlerTutar.toFixed(2)}₺
+                  </span>
                 </div>
                 <div
                   className="total-amount"
@@ -311,6 +320,7 @@ function handleSubmit(event) {
                 <Button
                   type="submit"
                   disabled={!isFormValid}
+                  data-cy="submit-order"
                   style={{
                     backgroundColor: "#FDC913",
                     marginTop: 10,

@@ -1,45 +1,46 @@
-
-
-describe("Pizza Order Form", () => {
+describe("Pizza Order Form (data-cy)", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5175");
-  })
-  it("İsim inputuna metin girilebiliyor", () => {
-    cy.get("#isim").clear().type("Merve Test").should("have.value", "Merve Test");
+    cy.visit("http://localhost:5175/order");
   });
+
+  it("İsim inputuna metin girilebiliyor", () => {
+    cy.get('[data-cy="input-name"]')
+      .clear()
+      .type("Merve Test")
+      .should("have.value", "Merve Test");
+  });
+
   it("Birden fazla malzeme seçilebiliyor (en az 4, en fazla 10)", () => {
-cy.get('input[name="toppings"]').its("length").should("be.gte", 4)
+    cy.get('[data-cy^="topping-"]').should("have.length.gte", 4);
 
-    cy.get('input[name="toppings"]').should("have.length.gte", 4)
-    cy.get('input[name="toppings"]').eq(0).check()
-    cy.get('input[name="toppings"]').eq(1).check();
-    cy.get('input[name="toppings"]').eq(2).check();
-    cy.get('input[name="toppings"]').eq(3).check();
+    cy.get('[data-cy="topping-0"]').check({ force: true });
+    cy.get('[data-cy="topping-1"]').check({ force: true });
+    cy.get('[data-cy="topping-2"]').check({ force: true });
+    cy.get('[data-cy="topping-3"]').check({ force: true });
 
-    cy.get('input[name="toppings"]:checked').its("length").should("be.gte", 4);
+    cy.get('[data-cy^="topping-"]:checked').its("length").should("be.gte", 4);
 
-    cy.get('input[name="toppings"]').eq(4).check();
-    cy.get('input[name="toppings"]').eq(5).check();
-    cy.get('input[name="toppings"]').eq(6).check();
-    cy.get('input[name="toppings"]').eq(7).check();
-    cy.get('input[name="toppings"]').eq(8).check();
-    cy.get('input[name="toppings"]').eq(9).check();
+    cy.get('[data-cy="topping-4"]').check({ force: true });
+    cy.get('[data-cy="topping-5"]').check({ force: true });
+    cy.get('[data-cy="topping-6"]').check({ force: true });
+    cy.get('[data-cy="topping-7"]').check({ force: true });
+    cy.get('[data-cy="topping-8"]').check({ force: true });
+    cy.get('[data-cy="topping-9"]').check({ force: true });
 
-    cy.get('input[name="toppings"]:checked').its("length").should("be.lte", 10)
+    cy.get('[data-cy^="topping-"]:checked').its("length").should("be.lte", 10);
+  });
 
-  })
-it("Form gönderiliyor", function () {
-  cy.intercept("POST", "https://reqres.in/api/pizza").as("sendPizza")
-  cy.get("#isim").clear().type("Merve")
-  cy.get('input[name="size"]').first().check()
-  cy.get('input[name="toppings"]').eq(0).check()
-  cy.get('input[name="toppings"]').eq(1).check()
-  cy.get('input[name="toppings"]').eq(2).check()
-  cy.get('input[name="toppings"]').eq(3).check()
-  cy.get("#ozel").type("Test notu")
-
-  cy.get('button[type="submit"]').click()
-  cy.wait("@sendPizza")
-})
-
-})
+  it("Form gönderiliyor (en az 4 malzeme ile)", () => {
+    cy.intercept("POST", "**/api/users").as("sendPizza");
+    cy.get('[data-cy="input-name"]').clear().type("Merve");
+    cy.get('[data-cy="size-S"]').check({ force: true });
+    cy.get('[data-cy="topping-0"]').check({ force: true });
+    cy.get('[data-cy="topping-1"]').check({ force: true });
+    cy.get('[data-cy="topping-2"]').check({ force: true });
+    cy.get('[data-cy="topping-3"]').check({ force: true });
+    cy.get('[data-cy="input-note"]').type("Test notu");
+    cy.get('[data-cy="submit-order"]').click({ force: true });
+    cy.wait("@sendPizza");
+    cy.url().should("include", "/success");
+  });
+});

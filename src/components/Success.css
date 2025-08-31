@@ -1,109 +1,151 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;600;700&display=swap');
 
 :root{
-  --red:#ce2829;
-  --yellow:#FDC913;
-  --white: #ffffff;
-  --muted-white: rgba(255,255,255,0.9);
+  --red: #ce2829;
+  --yellow: #FDC913;
+  --white: #fff;
+  --light-white: rgba(255,255,255,0.9);
 }
 
-*{box-sizing:border-box;}
 
 .success-hero{
-  min-height:100vh;
-  width:100%;
-  background: var(--red);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  padding:40px 20px;
-  overflow:hidden;
-  color: var(--white);
-  font-family: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  min-height: 100vh;
+  background:  #ce2829;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  flex-direction: column;
 }
 
 
 .success-inner{
-  width:100%;
-  max-width:1100px;
-  text-align:center;
-  position:relative;
-  padding: 40px 20px;
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
+  padding: 30px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 
 .success-logo{
-  display:block;
-  margin: 0 auto;
-  width: 260px;
+  width: 220px;
   max-width: 45%;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 28px; 
+  display: block;
+  margin: 0 auto 8px;
+}
+
+
+.success-kicker{
+  color: var(--yellow);
+  font-style: italic;
+  margin: 10px 0 4px;
+  font-weight: 600;
+   font-family: "Satisfy", cursive;
 }
 
 
 .success-title{
-  margin: 0;
-  padding: 0;
-  color: var(--white);
-  font-weight: 100;
-  letter-spacing: 2px;
-  line-height: 1.02;
- 
-  margin-top: 18vh;
-  font-size: 5rem;
+  margin: 6px 0 18px;
+  font-size: 2.6rem;
+  font-weight: 300;
+  letter-spacing: 1px;
   text-transform: uppercase;
+  font-family: "Barlow", sans-serif;
 }
 
 
+.order-summary{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  font-family: "Barlow", sans-serif;
+}
 
+
+.left{
+  flex: 1 1 320px;
+  text-align: left;
+  color: var(--light-white);
+}
+
+
+.item-list{
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+.item-list li{
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.95rem;
+}
+
+
+.right{
+  width: 220px;
+  flex: 0 0 220px;
+}
+.box{
+  border: 1px solid gray;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: left;
+  color: var(--light-white);
+  
+}
+.row{
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+.row.total{
+  font-weight: 700;
+  margin-top: 10px;
+}
 
 
 .success-actions{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  margin-top: 28px;
-  flex-wrap:wrap;
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
-
-
-.success-actions .btn{
-  padding:10px 20px;
-  border-radius:24px;
-  font-weight:700;
-  cursor:pointer;
-  border: none;
-  min-width: 140px;
-  
+.btn-home{
+  background: transparent;
+  color: var(--white);
+  border: 1px solid gray;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
 }
-
-
 .btn-order{
   background: var(--yellow);
   color: #000;
   border: 1px solid var(--yellow);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-
-.btn-home{
-  background: transparent;
-  color: var(--white);
-  border: 1px solid rgba(255,255,255,0.16);
+.site-footer {
+  margin-top: auto;
+  width: 100%;
 }
-
-
-@media (max-width: 900px){
-  .success-logo{ width: 200px; top: 18px; }
-  .success-title{ margin-top: 16vh; font-size: clamp(1.6rem, 8vw, 3rem); }
-}
-
-@media (max-width: 480px){
-  .success-logo{ width: 160px; top: 12px; }
-  .success-title{ margin-top: 12vh; font-size: clamp(1.4rem, 9vw, 2.2rem); }
-  .success-actions .btn{ min-width: 120px; padding:8px 14px; }
+@media (max-width: 760px){
+  .order-summary{ flex-direction: column; align-items: center; }
+  .left{ text-align: center; }
+  .right{ width: 100%; max-width: 360px; }
+  .success-title{ font-size: 1.8rem;} 
 }
